@@ -14,12 +14,13 @@ let yCar = height - 50;
 
 let score = 0; 
 
+let theme = new Audio(); 
+theme.src = "audio/theme.mp3";
+
 bg.src = "img/bg.png"; 
 car.src = "img/c.png";
 enemy.src = "img/e.png";
 
-let theme = new Audio(); 
-theme.src = "audio/theme.mp3";
 
 let keys = {
   W: 87,

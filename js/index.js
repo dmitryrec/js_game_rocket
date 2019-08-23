@@ -9,10 +9,10 @@ canvas.height =
     ? 600
     : document.documentElement.clientHeight / 1.5;
 
+let scoresCounter = document.getElementById('score');
+let levelCounter = document.getElementById('level');
 let width = cvs.width;
 let height = cvs.height;
-
-
 
 let bg = new Image();
 let car = new Image();
@@ -23,7 +23,9 @@ let speed = 5;
 let xCar = width / 2 - 25;
 let yCar = height - 50;
 
-let score = 0;
+let scores = 0;
+let enemiesSpd = 5;
+let level=1;
 
 let theme = new Audio();
 theme.src = "audio/theme.mp3";
@@ -78,20 +80,26 @@ enemies[0] = {
 };
 
 function draw() {
-  theme.play()
+  // theme.play()
+  scoresCounter.innerHTML = scores;
+  levelCounter.innerHTML=level;
 
+  console.log(enemiesSpd);
   ctx.drawImage(bg, 0, 0, 600, 800);
   ctx.drawImage(car, xCar, yCar, 50, 50);
   for (let i = 0; i < enemies.length; i++) {
     ctx.drawImage(enemy, enemies[i].xE, enemies[i].yE, 50, 50);
-    score++;
-    enemies[i].yE += 5;
+    scores++;
+    if (scores % 4000 === 0){
+      enemiesSpd += 5;
+    level++};
+    enemies[i].yE += enemiesSpd;
 
-    if (enemies[i].yE == 50) {
+    if (enemies[i].yE == 40) {
 
       enemies.push({
         xE: Math.abs(Math.floor(Math.random() * width - 50)),
-        yE: -50
+        yE: -40
       });
     }
     if (enemies[i].yE + 40 == yCar && enemies[i].xE + 40 <= xCar + 40 && xCar <= enemies[i].xE + 40 ||

@@ -18,14 +18,15 @@ let bg = new Image();
 let car = new Image();
 let enemy = new Image();
 
-let speed = 5;
+let speed = 7;
 
 let xCar = width / 2 - 25;
 let yCar = height - 50;
 
 let scores = 0;
-let enemiesSpd = 5;
+let enemiesSpd = 3;
 let level=1;
+let intervalReaspawnEnemies = 500;
 
 let theme = new Audio();
 theme.src = "audio/theme.mp3";
@@ -79,6 +80,14 @@ enemies[0] = {
   yE: -50
 };
 
+setInterval(function() {
+
+  enemies.push({
+    xE: Math.abs(Math.floor(Math.random() * width - 50)),
+    yE: -40
+  });
+}, intervalReaspawnEnemies) 
+
 function draw() {
   // theme.play()
   scoresCounter.innerHTML = scores;
@@ -90,18 +99,12 @@ function draw() {
   for (let i = 0; i < enemies.length; i++) {
     ctx.drawImage(enemy, enemies[i].xE, enemies[i].yE, 50, 50);
     scores++;
-    if (scores % 4000 === 0){
-      enemiesSpd += 5;
+    if (scores % 5000 === 0){
+      enemiesSpd += 1;
     level++};
     enemies[i].yE += enemiesSpd;
-
-    if (enemies[i].yE == 40) {
-
-      enemies.push({
-        xE: Math.abs(Math.floor(Math.random() * width - 50)),
-        yE: -40
-      });
-    }
+    intervalReaspawnEnemies+20;  
+    
     if (enemies[i].yE + 40 == yCar && enemies[i].xE + 40 <= xCar + 40 && xCar <= enemies[i].xE + 40 ||
       enemies[i].yE + 40 == yCar && enemies[i].xE + 40 >= xCar + 40 && enemies[i].xE <= xCar + 40 ||
       enemies[i].yE + 40 >= yCar && enemies[i].yE <= yCar + 40 && enemies[i].xE + 40 <= xCar + 40 && xCar <= enemies[i].xE + 40 ||

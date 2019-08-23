@@ -93,17 +93,18 @@ function draw() {
   scoresCounter.innerHTML = scores;
   levelCounter.innerHTML=level;
 
-  console.log(enemiesSpd);
+  console.log(intervalReaspawnEnemies);
   ctx.drawImage(bg, 0, 0, 600, 800);
   ctx.drawImage(car, xCar, yCar, 50, 50);
   for (let i = 0; i < enemies.length; i++) {
     ctx.drawImage(enemy, enemies[i].xE, enemies[i].yE, 50, 50);
     scores++;
-    if (scores % 5000 === 0){
+    if (scores % 4000 === 0){
       enemiesSpd += 1;
-    level++};
+    level++
+    intervalReaspawnEnemies-=10;  
+    };
     enemies[i].yE += enemiesSpd;
-    intervalReaspawnEnemies+20;  
     
     if (enemies[i].yE + 40 == yCar && enemies[i].xE + 40 <= xCar + 40 && xCar <= enemies[i].xE + 40 ||
       enemies[i].yE + 40 == yCar && enemies[i].xE + 40 >= xCar + 40 && enemies[i].xE <= xCar + 40 ||

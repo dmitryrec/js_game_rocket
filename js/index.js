@@ -27,9 +27,8 @@ let scores = 0;
 let enemiesSpd = 3;
 let level=1;
 let intervalReaspawnEnemies = 500;
+let intervalToNextLevel = 4000;
 
-let theme = new Audio();
-theme.src = "audio/theme.mp3";
 
 bg.src = "img/bg.png";
 car.src = "img/c.png";
@@ -99,10 +98,10 @@ function draw() {
   for (let i = 0; i < enemies.length; i++) {
     ctx.drawImage(enemy, enemies[i].xE, enemies[i].yE, 50, 50);
     scores++;
-    if (scores % 4000 === 0){
+    if (scores % intervalToNextLevel === 0){
       enemiesSpd += 1;
     level++
-    intervalReaspawnEnemies-=10;  
+    intervalReaspawnEnemies-=20;  
     };
     enemies[i].yE += enemiesSpd;
     

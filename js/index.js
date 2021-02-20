@@ -13,27 +13,21 @@ let scoresCounter = document.getElementById('score');
 let levelCounter = document.getElementById('level');
 let width = cvs.width;
 let height = cvs.height;
-
 let bg = new Image();
 let car = new Image();
 let enemy = new Image();
-
 let speed = 7;
-
 let xCar = width / 2 - 25;
 let yCar = height - 50;
-
 let scores = 0;
 let enemiesSpd = 3;
 let level=1;
 let intervalReaspawnEnemies = 500;
 let intervalToNextLevel = 4000;
 
-
 bg.src = "img/bg.png";
 car.src = "img/c.png";
 enemy.src = "img/e.png";
-
 
 let keys = {
   W: 87,
@@ -68,41 +62,36 @@ window.onkeyup = function (e) {
 
 let move = function () {
   if (isKeyDown("LEFT") && xCar > 0) xCar -= speed;
-
   if (isKeyDown("RIGHT") && xCar < width - 50) xCar += speed;
 };
 
 let enemies = [];
 
 enemies[0] = {
-  xE: 20,
+  xE: Math.abs(Math.floor(Math.random() * width - 50)),
   yE: -50
 };
 
-setInterval(function() {
-
-  enemies.push({
-    xE: Math.abs(Math.floor(Math.random() * width - 50)),
-    yE: -40
-  });
-}, intervalReaspawnEnemies) 
-
 function draw() {
-  // theme.play()
+  scores++;
+  if(scores !== 0 && scores % 35 === 0) {
+    enemies.push({
+      xE: Math.abs(Math.floor(Math.random() * width - 50)),
+      yE: -40
+    });
+  }
   scoresCounter.innerHTML = scores;
   levelCounter.innerHTML=level;
 
-  console.log(intervalReaspawnEnemies);
   ctx.drawImage(bg, 0, 0, 600, 800);
   ctx.drawImage(car, xCar, yCar, 50, 50);
   for (let i = 0; i < enemies.length; i++) {
     ctx.drawImage(enemy, enemies[i].xE, enemies[i].yE, 50, 50);
-    scores++;
-    if (scores % intervalToNextLevel === 0){
-      enemiesSpd += 1;
-    level++
-    intervalReaspawnEnemies-=20;  
-    };
+    // if (scores % intervalToNextLevel === 0){
+    //   enemiesSpd += 1;
+    //   level++
+    //   intervalReaspawnEnemies-=20;  
+    // };
     enemies[i].yE += enemiesSpd;
     
     if (enemies[i].yE + 40 == yCar && enemies[i].xE + 40 <= xCar + 40 && xCar <= enemies[i].xE + 40 ||
@@ -114,12 +103,9 @@ function draw() {
     }
   }
 
-
   move();
 
   requestAnimationFrame(draw);
 }
 
 enemy.onload = draw;
-
-

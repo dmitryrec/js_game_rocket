@@ -22,7 +22,7 @@ let xCar = width / 2 - 25;
 let yCar = height - 50;
 let scores = 0;
 let enemiesSpd = 3;
-let level=1;
+let level = 1;
 let intervalReaspawnEnemies = 45;
 let intervalToNextLevel = 500;
 let enemies = [];
@@ -76,36 +76,36 @@ enemies[0] = {
 
 function draw() {
   scores++;
-  if(scores !== 0 && scores % intervalReaspawnEnemies === 0) {
+  if (scores !== 0 && scores % intervalReaspawnEnemies === 0) {
     enemies.push({
       xE: Math.abs(Math.floor(Math.random() * width - 50)),
       yE: -40
     });
   }
-  if(scores % intervalToNextLevel === 0){
-      enemiesSpd += 0.5;
-      level++
-      intervalReaspawnEnemies -= 3;  
-    };
+  if (scores % intervalToNextLevel === 0) {
+    enemiesSpd += 0.5;
+    level++
+    intervalReaspawnEnemies -= 3;
+  };
   scoresCounter.innerHTML = scores;
-  levelCounter.innerHTML=level;
+  levelCounter.innerHTML = level;
 
   ctx.drawImage(bg, 0, 0, 600, 800);
   ctx.drawImage(car, xCar, yCar, 50, 50);
   for (let i = 0; i < enemies.length; i++) {
     ctx.drawImage(enemy, enemies[i].xE, enemies[i].yE, 50, 50);
     enemies[i].yE += enemiesSpd;
-    
-    if (enemies[i].yE + 40 == yCar && enemies[i].xE + 40 <= xCar + 40 && xCar <= enemies[i].xE + 40 ||
-      enemies[i].yE + 40 == yCar && enemies[i].xE + 40 >= xCar + 40 && enemies[i].xE <= xCar + 40 ||
+
+    if (enemies[i].yE + 40 === yCar && enemies[i].xE + 40 <= xCar + 40 && xCar <= enemies[i].xE + 40 ||
+      enemies[i].yE + 40 === yCar && enemies[i].xE + 40 >= xCar + 40 && enemies[i].xE <= xCar + 40 ||
       enemies[i].yE + 40 >= yCar && enemies[i].yE <= yCar + 40 && enemies[i].xE + 40 <= xCar + 40 && xCar <= enemies[i].xE + 40 ||
       enemies[i].yE + 40 >= yCar && enemies[i].yE <= yCar + 40 && xCar <= enemies[i].xE && enemies[i].xE <= xCar + 40) {
-        if(localStorage.getItem('record') && localStorage.getItem('record') < scores || !localStorage.getItem('record')) {
-          localStorage.setItem('record', scores)
-        }
-        location.reload();
+      if (localStorage.getItem('record') && localStorage.getItem('record') < scores || !localStorage.getItem('record')) {
+        localStorage.setItem('record', scores);
+      }
+      location.reload();
     }
-  } 
+  }
 
   move();
 

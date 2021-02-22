@@ -4,12 +4,19 @@
     box-sizing: border-box;
 }
 
-body{
-    font-size: 30px;
-}
-
 #canvas {
     margin-top: 50px;
     box-shadow: 0 0 5px black;
-    
+}
+
+#score, #level, #record {
+    font-size: 30px;
+}
+
+.stats-container {
+    font-size: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

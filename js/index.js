@@ -39,7 +39,9 @@ let keys = {
   A: 65,
   D: 68,
   LEFT: 37,
-  RIGHT: 39
+  RIGHT: 39,
+  UP: 38,
+  DOWN: 40
 };
 
 let keyDown = {};
@@ -65,18 +67,15 @@ window.onkeyup = function (e) {
 };
 
 let move = function () {
-  if (isKeyDown("LEFT") && xCar > 0) xCar -= speed;
-  if (isKeyDown("RIGHT") && xCar < width - 50) xCar += speed;
-};
-
-enemies[0] = {
-  xE: Math.abs(Math.floor(Math.random() * width - 50)),
-  yE: -50
+  if ((isKeyDown("LEFT") || isKeyDown("A")) && xCar > 0) xCar -= speed;
+  if ((isKeyDown("RIGHT") || isKeyDown("D")) && xCar < width - 50) xCar += speed;
+  if ((isKeyDown("UP") || isKeyDown("W")) && yCar >= 0) yCar -= speed;
+  if ((isKeyDown("DOWN") || isKeyDown("S")) && yCar <= height - 60) yCar += speed;
 };
 
 function draw() {
   scores++;
-  if (scores !== 0 && scores % intervalReaspawnEnemies === 0) {
+  if (scores % intervalReaspawnEnemies === 0) {
     enemies.push({
       xE: Math.abs(Math.floor(Math.random() * width - 50)),
       yE: -40

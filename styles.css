@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+body {
+    font-family: 'Oswald', sans-serif;
+}
+
 #canvas {
     margin-top: 50px;
     box-shadow: 0 0 5px black;
